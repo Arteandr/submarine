@@ -16,11 +16,18 @@ class VizualizeUI(QtWidgets.QMainWindow):
         self.initUI()
         
         self.front_view = self.findChild(QtWidgets.QGroupBox, "front_view")
+        self.front_view_l = self.findChild(QtWidgets.QVBoxLayout, "v_front_view") 
+        front_interactor = SubmarineGLWidget('sup.stl',(200,0,100), 45, ("red","red"), self.front_view).get_widget()
+        self.front_view_l.addWidget(front_interactor, stretch=1)
+        
         self.back_view = self.findChild(QtWidgets.QGroupBox, "back_view")
+        self.back_view_l = self.findChild(QtWidgets.QVBoxLayout, "v_back_view")
+        back_interactor = SubmarineGLWidget('sup.stl',(200,0,100), 45, ("red","red"), self.back_view).get_widget()
+        self.back_view_l.addWidget(back_interactor, stretch=1)
+        
         self.global_view = self.findChild(QtWidgets.QGroupBox, "global_view")
         self.global_view_l= self.findChild(QtWidgets.QVBoxLayout, "v_global_view")
-        
-        global_interactor = self.global_view = SubmarineGLWidget('sup.stl',(200,0,100), 45, ("red","red"), self.global_view).get_widget()
+        global_interactor = SubmarineGLWidget('sup.stl',(200,0,100), 45, ("red","red"), self.global_view).get_widget()
         self.global_view_l.addWidget(global_interactor, stretch=1)
         
     def initUI(self):
