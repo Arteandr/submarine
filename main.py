@@ -3,7 +3,7 @@ import math
 import PyQt5.QtWidgets as qt_widgets
 from PyQt5 import uic
 from PyQt5.QtCore import QLocale
-from PyQt5.QtWidgets import QApplication, QOpenGLWidget, QMessageBox
+from PyQt5.QtWidgets import QApplication, QMessageBox
 from PyQt5.QtGui import QDoubleValidator
 from OpenGL.GL import *
 from OpenGL.GLUT import *
@@ -25,10 +25,6 @@ class MainUI(qt_widgets.QMainWindow):
         self.b_input.setValidator(QDoubleValidator(0.0, 100.0, 2, self).setLocale(QLocale("en_US")))
         self.c_input = self.findChild(qt_widgets.QLineEdit, 'c_input')
         self.c_input.setValidator(QDoubleValidator(0.0, 100.0, 2, self).setLocale(QLocale("en_US")))
-        self.angle_input = self.findChild(qt_widgets.QLineEdit, 'angle_input')
-        self.angle_input.setValidator(QDoubleValidator(0.0, 100.0, 2, self).setLocale(QLocale("en_US")))
-        self.color_group = self.findChild(qt_widgets.QGroupBox, 'color_group')
-        
         
         self.show()
     
@@ -45,17 +41,13 @@ class MainUI(qt_widgets.QMainWindow):
             return "blue"
     
     def onVizualizeButtonClick(self):
-        """
-        if len(self.angle_input.text()) == 0 or len(self.a_input.text()) == 0 or len(self.b_input.text()) == 0 or len(self.c_input.text()) == 0:
+        if len(self.a_input.text()) == 0 or len(self.b_input.text()) == 0 or len(self.c_input.text()) == 0:
             QMessageBox.about(self, "Ошибка", "Введите все значения!")
             return
-        t = (float(self.a_input.text()), float(self.b_input.text()), float(self.c_input.text())) 
-        angle = float(self.angle_input.text())
-        widget = OpenGLWidget('sup.stl', t, angle, (self.get_selected_color("f"), self.get_selected_color("s")))
-        """
+        pos = (float(self.a_input.text()), float(self.b_input.text()), float(self.c_input.text())) 
         
         global viz_window 
-        viz_window = VizualizeUI()
+        viz_window = VizualizeUI(pos=pos, color=self.get_selected_color("f"))
         viz_window.show()
 
 if __name__ == '__main__':
